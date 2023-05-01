@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+
 import './App.css';
 import Pokedex from './components/Pokedex';
 
@@ -9,7 +9,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        <img src="https://archives.bulbagarden.net/media/upload/4/4b/Pokédex_logo.png" className="logo" alt="logo" />
 
       <Pokedex></Pokedex>
         
