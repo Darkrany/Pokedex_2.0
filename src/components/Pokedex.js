@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import PokedexList from './PokedexList';
-
+import Pagination from './Pagination';
 
 export default function Pokedex() {
 
   const [pokemons, setPokemon] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pkmsPerPages, setPkmsPerPages] = useState(20);
+
 
   useEffect(() => {
-    fetch(`https://pokeapi.co/api/v2/pokemon/`)
+    const offset = (currentPage - 1) * pkmsPerPages; //Calculamos el indice del primer pokemon en la pagina actual con la resta, despues multiplicamos para mostrar cada pagina
+
+
+    fetch('https://pokeapi.co/api/v2/pokemon/' + '?limit=' + pkmsPerPages + '&offset=' + offset)
       .then((res) => res.json())
       .then((data) => {
         const pokemonRequest = data.results.map((pokemon) => {
@@ -21,14 +27,21 @@ export default function Pokedex() {
               img: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+pkmID+".png"
             };
         });
-        setPokemon(pokemonRequest)
+        setPokemon(pokemonRequest);
+        
       }); 
 
-  }, []);
+  }, [currentPage, pkmsPerPages]);
 
   return (
  <div>
   <PokedexList pokemons={pokemons}></PokedexList>
+
+  <Pagination 
+    currentPage={currentPage} 
+    setCurrentPage={setCurrentPage}  
+    
+    ></Pagination>
  </div>
   );
 
