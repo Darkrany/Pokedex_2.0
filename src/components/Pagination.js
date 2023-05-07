@@ -1,19 +1,26 @@
 import React from 'react'
 
-function Pagination({ currentPage, setCurrentPage }) {
+function Pagination({ currentPage, setCurrentPage, pkmsPerPages, setPkmsPerPages }) {
 
     const pageNext = () => {
-        setCurrentPage(currentPage + 1);
+        currentPage++;
+        setCurrentPage(currentPage);
 
     };
 
     const pagePrev = () => {
         if (currentPage > 1) {
-            setCurrentPage(currentPage - 1);
-          }
+          currentPage--;
+          setCurrentPage(currentPage);
+      }
 
     };
 
+    const handleChange = (e) => {
+      pkmsPerPages = e.target.value;
+      setPkmsPerPages(pkmsPerPages);
+
+    }
 
   return (
 
@@ -21,11 +28,11 @@ function Pagination({ currentPage, setCurrentPage }) {
 <button id="pagePrev" className="load-more" onClick={pagePrev} >Anterior</button>
 <button id="pageNext" className="load-more" onClick={pageNext} >Siguiente</button>
 
-{/* <select id="cantidad" name="cantidad" className="load-more" >
+<select id="cantidad" name="cantidad" className="load-more" onChange={handleChange} >
 	<option value="20">20</option>	
 	<option value="50">50</option>
 	<option value="100">100</option>
-  </select> */}
+  </select>
 </div>
 
   )
