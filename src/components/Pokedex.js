@@ -11,8 +11,7 @@ export default function Pokedex() {
 
   useEffect(() => {
     const offset = (currentPage - 1) * pkmsPerPages; //Calculamos el indice del primer pokemon en la pagina actual con la resta, despues multiplicamos para mostrar cada pagina
-
-
+    
     fetch('https://pokeapi.co/api/v2/pokemon/?limit=' + pkmsPerPages + '&offset=' + offset)
       .then((res) => res.json())
       .then((data) => {
