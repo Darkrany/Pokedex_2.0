@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom';
 
 function Details() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const pokemonId = urlParams.get('id');
+    
+  const { id } = useParams();
 
-    const [pokemonDetail, setPokemonDetail] = useState([]);
+    const [pokemonDetail, setPokemonDetail] = useState({});
     
     useEffect(() => {
-        fetch('https://pokeapi.co/api/v2/pokemon/'+pokemonId)
+        fetch('https://pokeapi.co/api/v2/pokemon/'+id)
         .then((res) => res.json())
         .then((data) => { 
             const pkmName = data.name.charAt().toUpperCase() + data.name.substring(1)
@@ -22,7 +23,7 @@ function Details() {
                };
                setPokemonDetail(pokemonDetailsRequest)
             });
-    },[]);
+    },[id]);
   return (
     <nav>
       <div id="left">
@@ -49,14 +50,14 @@ function Details() {
       <div id="buttontopPicture2"></div>
     </div>  
     <div id="picture">
-      <img src="${pkm.img}" alt="${pkm.nombre}" height="170" />
+      <img src={pokemonDetail.img} alt={pokemonDetail.nombre} height="170" />
     </div>
     <div id="buttonbottomPicture"></div>
     <div id="speakers">
-      <div class="sp"></div>
-      <div class="sp"></div>
-      <div class="sp"></div>
-      <div class="sp"></div>
+      <div className="sp"></div>
+      <div className="sp"></div>
+      <div className="sp"></div>
+      <div className="sp"></div>
     </div>
   </div>
   <div id="bigbluebutton"></div>
@@ -90,18 +91,18 @@ function Details() {
 
   </div>
   <div id="blueButtons1">
-    <div class="blueButton"></div>
-    <div class="blueButton"></div>
-    <div class="blueButton"></div>
-    <div class="blueButton"></div>
-    <div class="blueButton"></div>
+    <div className="blueButton"></div>
+    <div className="blueButton"></div>
+    <div className="blueButton"></div>
+    <div className="blueButton"></div>
+    <div className="blueButton"></div>
   </div>
   <div id="blueButtons2">
-    <div class="blueButton"></div>
-    <div class="blueButton"></div>
-    <div class="blueButton"></div>
-    <div class="blueButton"></div>
-    <div class="blueButton"></div>
+    <div className="blueButton"></div>
+    <div className="blueButton"></div>
+    <div className="blueButton"></div>
+    <div className="blueButton"></div>
+    <div className="blueButton"></div>
   </div>
   <div id="miniButtonGlass4"></div>
   <div id="miniButtonGlass5"></div>
@@ -109,11 +110,13 @@ function Details() {
   <div id="barbutton4"></div>
   <div id="yellowBox1">
   <br/>
-  <strong>Estadisticas Base<br/>${pkm.stats}</strong></div>
+  <strong>Estadisticas Base<br/>{pokemonDetail.stats}</strong></div>
   <div id="yellowBox2">
   <br/>
-  <a href="https://www.pokemon.com/es/pokedex/${pkm.nombre}">
-  <strong>Más Info<br/></strong>
+  <a href={`https://www.pokemon.com/es/pokedex/${pokemonDetail.nombre}`}>
+  <strong>Más Info</strong>
+</a>
+ 
   </div>
     <br/>
  
